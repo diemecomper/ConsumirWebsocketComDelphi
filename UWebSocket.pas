@@ -36,6 +36,8 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure ClientSocketConnecting(Sender: TObject; Socket: TCustomWinSocket);
+    procedure ClientSocketDisconnect(Sender: TObject; Socket: TCustomWinSocket);
   private
     { Private declarations }
   public
@@ -80,10 +82,25 @@ begin
   linhas.lines.Add('on connect');
 end;
 
+procedure TFWebsocket.ClientSocketConnecting(Sender: TObject;
+  Socket: TCustomWinSocket);
+begin
+  linhas.lines.Add('conectando...');
+end;
+
+procedure TFWebsocket.ClientSocketDisconnect(Sender: TObject;
+  Socket: TCustomWinSocket);
+begin
+  linhas.lines.Add('desconectando...');
+end;
+
 procedure TFWebsocket.ClientSocketError(Sender: TObject;
   Socket: TCustomWinSocket; ErrorEvent: TErrorEvent; var ErrorCode: Integer);
 begin
   linhas.lines.Add('Erro ' + IntToStr(ErrorCode));
+  ErrorCode:=0;
+  ClientSocket.Active := False;
+// This can happen when no active server is started
 end;
 
 procedure TFWebsocket.ClientSocketLookup(Sender: TObject;
@@ -100,7 +117,7 @@ procedure TFWebsocket.ClientSocketRead(Sender: TObject;
   recO, rec: String;
 begin
   recO := Socket.ReceiveText;
-
+  linhas.lines.Add('Info Server: '+ recO);
   if pos(String('"sid":"'), recO) > 0 then
   begin
     rec := recO;
