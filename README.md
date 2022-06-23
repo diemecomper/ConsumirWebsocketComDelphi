@@ -7,3 +7,6 @@ Baseei nessa discussão aqui:
 http://www.activedelphi.com.br/forum/viewtopic.php?p=486884&sid=cde75b65e3377d92e301e0577b2b8360
 
 Usando apenas https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.Win.ScktComp.TClientSocket
+
+Dieme
++55 (27) 98809-5543
